@@ -14,6 +14,16 @@ module UserComparer
     def initialize(user1, user2)
       @user1 = user1
       @user2 = user2
+
+      if user1.followers_count  > user2.followers_count
+      	puts "user 1 have more followers than user 2"
+      	
+      elsif user2.followers_count > user1.followers_count
+      	puts "user 2 has more followers than user 1"
+      	
+      else
+      	puts "How remarkable that their could be a tie"
+      end
     end
 
     def followers
@@ -25,7 +35,8 @@ module UserComparer
         config.access_token_secret = ENV['OAUTH_TOKEN_SECRET']
       end
 
-      client.user(@username)followers_count
+      client.user(@username).followers_count
+      #puts @username
     end
   end
 end
