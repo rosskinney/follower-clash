@@ -4,11 +4,28 @@ require 'twitter'
 
 module UserComparer
   class User
-  end
+    attr_reader :username
 
+    def initialize(username)
+      @username = username
+    end
+  end
   class Comparer
-  	def initialize(user1, user2)
-  		@user1 = user1
-  		@user2 = user2
+    def initialize(user1, user2)
+      @user1 = user1
+      @user2 = user2
+    end
+
+    def followers
+
+      client = Twitter::REST::Client.new do |config|
+        config.consumer_key = ENV['CONSUMER_KEY']
+        config.consumer_secret = ENV['CONSUMER_SECRET']
+        config.access_token = ENV['OAUTH_TOKEN']
+        config.access_token_secret = ENV['OAUTH_TOKEN_SECRET']
+      end
+
+      client.user(@username)followers_count
+    end
   end
 end
