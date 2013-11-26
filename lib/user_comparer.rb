@@ -4,26 +4,10 @@ require 'twitter'
 
 module UserComparer
   class User
-    attr_reader :username
+    attr_accessor :username
 
     def initialize(username)
       @username = username
-    end
-  end
-  class Comparer
-    def initialize(user1, user2)
-      @user1 = user1
-      @user2 = user2
-
-      if user1.followers_count  > user2.followers_count
-      	puts "user 1 have more followers than user 2"
-      	
-      elsif user2.followers_count > user1.followers_count
-      	puts "user 2 has more followers than user 1"
-      	
-      else
-      	puts "How remarkable that their could be a tie"
-      end
     end
 
     def followers
@@ -36,7 +20,27 @@ module UserComparer
       end
 
       client.user(@username).followers_count
-      #puts @username
+    end #puts @username
+  end #end of User Class
+
+
+  class Comparer
+    attr_accessor :user1, :user2
+
+    def initialize(user1, user2)
+      @user1 = user1
+      @user2 = user2
     end
-  end
-end
+
+    def compare
+      if user1.followers > user2.followers
+        user1.username
+      elsif user2.followers > user1.followers
+        user2.username
+      else
+        puts "How remarkable that their could be a tie"
+      end
+    end # end of compare method
+
+  end # end of comparer Class
+end # end of Module UserComparer
